@@ -285,27 +285,52 @@ helm search repo bitnami
 helm search repo bitnami/kafka
 helm show values bitnami/kafka
 helm search repo bitnami/kafka --versions
-helm show chart bitnami/kafka --version 25.1.1
-helm show readme bitnami/kafka --version 25.1.1
-helm show values bitnami/kafka --version 25.1.1
-helm show all bitnami/kafka --version 25.1.1
-helm show values bitnami/kafka --version 25.1.1 > kafka-values.yaml
+helm show chart bitnami/kafka --version 23.0.7
+helm show readme bitnami/kafka --version 23.0.7
+helm show values bitnami/kafka --version 23.0.7
+helm show all bitnami/kafka --version 23.0.7
 ```
 
+- kafka-values.yaml
+```bash
+image:
+  debug: true
+replicaCount: 0
+tolerations: 
+   - key: "node-role.kubernetes.io/control-plane"
+     operator: "Equal"
+     value: ""
+     effect: "NoSchedule"
+externalAccess:
+  enabled: true
+  autoDiscovery:
+    enabled: true
+kraft:
+  enabled: false    
+extraEnvVars:
+  - name: KAFKA_ENABLE_KRAFT
+    value: "false"
+zookeeper:
+  enabled: true
+  replicaCount: 3
+```
 
 - Helm Apache kafka Installation 
 ```bash
-helm -n kafka upgrade --install kafka-release bitnami/kafka --create-namespace --set persistence.size=8Gi,logPersistence.size=8Gi,replicaCount=3,volumePermissions.enabled=true,persistence.enabled=true,logPersistence.enabled=true,serviceAccount.create=true,rbac.create=true --version 25.1.1 -f kafka-values.yaml
+helm -n kafka upgrade --install kafka-release bitnami/kafka --create-namespace --set persistence.size=8Gi,logPersistence.size=8Gi,volumePermissions.enabled=true,persistence.enabled=true,logPersistence.enabled=true,serviceAccount.create=true,rbac.create=true --version 23.0.7 -f kafka-values.yaml
 ```
 
 - Login to kafka pod 
 ```bash
-kubectl exec --tty -i kafka-release-0 --namespace default -- bash
+kubectl exec --tty -i kafka-release-controller-0 --namespace kafka -- bash
 ```
 
 - Kafka Topic creation
 ```bash
-kafka-topics.sh --create --topic test1 --bootstrap-server kafka-release-0.kafka-release-headless.default.svc.cluster.local:9092 --replication-factor 3 --partitions 3
+kafka-topics.sh --create --topic test1 --bootstrap-server kafka-release.kafka.svc.cluster.local:9092
+
+
+kafka-release-headless.kafka.svc.cluster.local:9092 --replication-factor 3 --partitions 3
 ```
 
 - Kafka verify the cluster using producer and consumer
