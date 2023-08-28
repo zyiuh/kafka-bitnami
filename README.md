@@ -295,7 +295,7 @@ helm show values bitnami/kafka --version 25.1.1 > kafka-values.yaml
 
 - Helm Apache kafka Installation 
 ```bash
-helm -n kafka upgrade --install kafka-release bitnami/kafka --create-namespace --set persistence.size=8Gi,logPersistence.size=8Gi,replicaCount=3,volumePermissions.enabled=true,persistence.enabled=true,logPersistence.enabled=true,auth.clientProtocol=plaintext,allowPlaintextListener=true,listeners=PLAINTEXT://0.0.0.0:9092,advertisedListeners=PLAINTEXT://:9092,listenerSecurityProtocolMap=PLAINTEXT:PLAINTEXT,interBrokerListenerName="PLAINTEXT",serviceAccount.create=true,rbac.create=true,image.tag=latest --version 25.1.1 -f kafka-values.yaml
+helm -n kafka upgrade --install kafka-release bitnami/kafka --create-namespace --set persistence.size=8Gi,logPersistence.size=8Gi,replicaCount=3,volumePermissions.enabled=true,persistence.enabled=true,logPersistence.enabled=true,serviceAccount.create=true,rbac.create=true --version 25.1.1 -f kafka-values.yaml
 ```
 
 - Helm kafka Upgrade
