@@ -298,11 +298,6 @@ helm show values bitnami/kafka --version 25.1.1 > kafka-values.yaml
 helm -n kafka upgrade --install kafka-release bitnami/kafka --create-namespace --set persistence.size=8Gi,logPersistence.size=8Gi,replicaCount=3,volumePermissions.enabled=true,persistence.enabled=true,logPersistence.enabled=true,serviceAccount.create=true,rbac.create=true --version 25.1.1 -f kafka-values.yaml
 ```
 
-- Helm kafka Upgrade
-```bash
-helm -n kafka upgrade kafka-release bitnami/kafka --set externalAccess.enabled=true
-```
-
 - Login to kafka pod 
 ```bash
 kubectl exec --tty -i kafka-release-0 --namespace default -- bash
