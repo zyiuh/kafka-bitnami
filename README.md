@@ -295,14 +295,14 @@ helm show all bitnami/kafka --version 23.0.7
 ```bash
 image:
   debug: true
-replicaCount: 0
+replicaCount: 3
 tolerations: 
    - key: "node-role.kubernetes.io/control-plane"
      operator: "Equal"
      value: ""
      effect: "NoSchedule"
 externalAccess:
-  enabled: true
+  enabled: false
   autoDiscovery:
     enabled: true
 kraft:
