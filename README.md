@@ -330,6 +330,11 @@ kubectl exec --tty -i kafka-release-0 --namespace kafka -- bash
 kafka-topics.sh --create --topic test1 --bootstrap-server kafka-release.kafka.svc.cluster.local:9092
 ```
 
+- Headless Service
+```bash
+"headless" service in Kubernetes is a service that doesn't have a ClusterIP, meaning it doesn't provide load-balancing or reliable DNS resolution for the service. When you create a headless service, Kubernetes does not allocate a virtual IP for it. Instead, it allows you to directly reach the pods backing the service by enabling DNS resolution directly to the Pod IPs.
+```
+
 - Kafka verify the cluster using producer and consumer
 ```bash
 kafka-console-producer.sh --broker-list kafka-release-0.kafka-release-headless.kafka.svc.cluster.local:9092,kafka-release-1.kafka-release-headless.kafka.svc.cluster.local:9092,kafka-release-2.kafka-release-headless.kafka.svc.cluster.local:9092 --topic test1
