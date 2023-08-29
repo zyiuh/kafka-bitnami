@@ -322,20 +322,17 @@ helm -n kafka upgrade --install kafka-release bitnami/kafka --create-namespace -
 
 - Login to kafka pod 
 ```bash
-kubectl exec --tty -i kafka-release-controller-0 --namespace kafka -- bash
+kubectl exec --tty -i kafka-release-0 --namespace kafka -- bash
 ```
 
 - Kafka Topic creation
 ```bash
 kafka-topics.sh --create --topic test1 --bootstrap-server kafka-release.kafka.svc.cluster.local:9092
-
-
-kafka-release-headless.kafka.svc.cluster.local:9092 --replication-factor 3 --partitions 3
 ```
 
 - Kafka verify the cluster using producer and consumer
 ```bash
-kafka-console-producer.sh --broker-list kafka-release-0.kafka-release-headless.default.svc.cluster.local:9092,kafka-release-1.kafka-release-headless.default.svc.cluster.local:9092,kafka-release-2.kafka-release-headless.default.svc.cluster.local:9092 --topic test1
+kafka-console-producer.sh --broker-list kafka-release-0.kafka-release-headless.kafka.svc.cluster.local:9092,kafka-release-1.kafka-release-headless.kafka.svc.cluster.local:9092,kafka-release-2.kafka-release-headless.kafka.svc.cluster.local:9092 --topic test1
 ```
 
 ```bash
