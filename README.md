@@ -350,3 +350,51 @@ kafka-console-producer.sh --broker-list kafka-release-0.kafka-release-headless.k
 ```bash
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test1 --from-beginning
 ```
+
+- Kafka Management with Akhq
+- https://github.com/tchiotludo/akhq/tree/dev/helm/akhq
+- https://akhq.io/docs/configuration/helm.html
+- https://github.com/tchiotludo/akhq/tree/dev
+
+- Configuration
+- https://akhq.io/docs/configuration/helm.html#aws-msk-with-basic-authentication-and-alb-controller-ingress
+- https://akhq.io/docs/configuration/authentifications/jwt.html#configuration-file
+
+- tested version 0.23.0
+
+- Note: Update chart version in values.yaml file to 0.23.0
+
+- configuration.yaml
+```yaml
+configuration:
+  micronaut:
+    security:
+      enabled: true
+      token:
+        jwt:
+          signatures:
+            secret:
+              generator:
+                secret: '123456789'
+    server:
+      cors:
+        enabled: true
+        configurations:
+          all:
+            allowedOrigins:
+              - "*"
+  akhq:
+    connections:
+      local:
+        properties:
+          bootstrap.servers: "PLAINTEXT://kafka-release-headless.kafka.svc.cluster.local:9092"
+```
+
+```bash
+git clone https://github.com/tchiotludo/akhq.git
+cd akhq/helm/akhq
+```
+```helm
+helm upgrade --install kafka-akhq --namespace kafka \
+  -f values.yaml --create-namespace --wait ./
+```
