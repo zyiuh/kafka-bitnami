@@ -362,9 +362,29 @@ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test1 --from
 
 - tested version 0.23.0
 
+- password https://akhq.io/docs/configuration/authentifications/basic-auth.html
+
+- https://codebeautify.org/sha256-hash-generator
+
+- If you're on a Unix-like system, you can also generate bcrypt hashes directly from the command line using htpasswd, which is part of Apache's httpd tools:
+```bash
+micronaut:
+  security:
+    enabled: true
+akhq.security:
+  basic-auth:
+    - username: admin
+      password: "<SHA-256 hashed password>"
+      groups:
+      - admin
+    - username: reader
+      password: "<SHA-256 hashed password>"
+      groups:
+      - reader
+```
 - Note: Update chart version in values.yaml file to 0.23.0
 
-- configuration.yaml
+- configuration.yaml put this in values.yaml file
 ```yaml
 configuration:
   micronaut:
