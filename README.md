@@ -1,5 +1,7 @@
 # Kafka Bitnami
 
+- eks blue prints https://github.com/quickbooks2018/aws-eks-blueprints
+
 - Kind Cluster bash script
 
 - https://github.com/quickbooks2018/kind-nginx-ingress
