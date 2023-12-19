@@ -353,25 +353,89 @@ kafka-console-producer.sh --broker-list kafka-release-0.kafka-release-headless.k
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test1 --from-beginning
 ```
 
-- kafka management with kdrop https://github.com/quickbooks2018/strimzi-kafka-helm (Use thsi)
-- update
+- kafka management with kdrop https://github.com/quickbooks2018/strimzi-kafka-helm
+- updated command and values.yaml
 ```bash
-brokerConnect: kafka-release-headless.svc.cluster.local:9092 # Updated to use the bootstrap service
+helm -n kafka upgrade --install kafdrop --create-namespace -f values.yaml ./ --wait
+```
+- kdrop values.yaml for bitnami kafka
+```
+replicaCount: 1
+
+image:
+  repository: obsidiandynamics/kafdrop
+  tag: latest
+  pullPolicy: Always
+
+kafka:
+  brokerConnect: kafka-release-headless.kafka.svc.cluster.local:9092 # Updated to use the bootstrap service
+  properties: ""
+  truststore: ""
+  keystore: ""
+  propertiesFile: "kafka.properties"
+  truststoreFile: "kafka.truststore.jks"
+  keystoreFile: "kafka.keystore.jks"
+
+host:
+
+jvm:
+  opts: ""
+jmx:
+  port: 8686
+
+nameOverride: ""
+fullnameOverride: ""
+
+cmdArgs: ""
+
+global:
+  kubeVersion: ~
+
+server:
+  port: 9000
+  servlet:
+    contextPath: /
+
+service:
+  annotations: {}
+  type: ClusterIP
+  port: 9000
+  #nodePort: 30900
+
+ingress:
+  enabled: false
+  annotations: {}
+  apiVersion: ~
+  #ingressClassName: ~
+  path: /
+  #pathType: ~
+  hosts: []
+  tls: []
+
+resources:
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  requests:
+    cpu: 1m
+    memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+podAnnotations: {}
+
+hostAliases: []
+
+mountProtoDesc:
+  enabled: false
+  hostPath:
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+### Best Solution is Kafdrop
 
 - Kafka Management with Akhq
 - https://github.com/tchiotludo/akhq/tree/dev/helm/akhq
