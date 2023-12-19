@@ -353,6 +353,8 @@ kafka-console-producer.sh --broker-list kafka-release-0.kafka-release-headless.k
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test1 --from-beginning
 ```
 
+- kafka management with kdrop https://github.com/quickbooks2018/strimzi-kafka-helm (Use thsi)
+
 - Kafka Management with Akhq
 - https://github.com/tchiotludo/akhq/tree/dev/helm/akhq
 - https://akhq.io/docs/configuration/helm.html
