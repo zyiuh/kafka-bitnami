@@ -358,7 +358,6 @@ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test1 --from
 ```bash
 git clone https://github.com/obsidiandynamics/kafdrop.git
 cd kafdrop/chart
-helm -n bitnami upgrade --install kafdrop --create-namespace -f values.yaml ./ --wait
 ```
 
 - kafdrop values.yaml
