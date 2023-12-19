@@ -353,12 +353,15 @@ kafka-console-producer.sh --broker-list kafka-release-0.kafka-release-headless.k
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test1 --from-beginning
 ```
 
-- kafka management with kdrop https://github.com/quickbooks2018/strimzi-kafka-helm
-- updated command and values.yaml
+### Kafka Management with WEBUI
+- kafdrop
 ```bash
-helm -n kafka upgrade --install kafdrop --create-namespace -f values.yaml ./ --wait
+git clone https://github.com/obsidiandynamics/kafdrop.git
+cd kafdrop/chart
+helm -n strimzi upgrade --install kafdrop --create-namespace -f values.yaml ./ --wait
 ```
-- kdrop values.yaml for bitnami kafka
+
+- kafdrop values.yaml
 ```
 replicaCount: 1
 
@@ -433,6 +436,9 @@ hostAliases: []
 mountProtoDesc:
   enabled: false
   hostPath:
+```
+```bash
+helm -n kafka upgrade --install kafdrop --create-namespace -f values.yaml ./ --wait
 ```
 
 ### Best Solution is Kafdrop
