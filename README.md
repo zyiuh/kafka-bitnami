@@ -354,6 +354,24 @@ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test1 --from
 ```
 
 - kafka management with kdrop https://github.com/quickbooks2018/strimzi-kafka-helm (Use thsi)
+- update
+```bash
+brokerConnect: kafka-release-headless.svc.cluster.local:9092 # Updated to use the bootstrap service
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 - Kafka Management with Akhq
 - https://github.com/tchiotludo/akhq/tree/dev/helm/akhq
