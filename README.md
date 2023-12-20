@@ -442,6 +442,99 @@ helm -n kafka upgrade --install kafdrop --create-namespace -f values.yaml ./ --w
 
 ### Best Solution is Kafdrop
 
+- Kafka Debizium for CDC Change Data Capture
+- https://github.com/snapp-incubator/debezium-chart/tree/master
+```bash
+git clone https://github.com/snapp-incubator/debezium-chart.git
+cd debezium-chart/debezium
+```
+
+- values.yaml
+```bash
+nameOverride: ""
+fullnameOverride: "debezium"
+
+connect:
+  replicaCount: 1
+  imagePullSecrets: [ ]
+
+  image:
+    repository: quay.io/debezium/connect
+    pullPolicy: Always
+    tag: "1.9"
+
+  service:
+    type: ClusterIP
+    port: 8083
+    protocol: TCP
+    name: http
+
+  ingress:
+    enabled: false
+
+  autoscaling:
+    enabled: false
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1Gi
+    requests:
+      cpu: 500m
+      memory: 1Gi
+
+  env:
+    - name: BOOTSTRAP_SERVERS
+      value: kafka-release-headless.kafka.svc.cluster.local:9092
+    - name: GROUP_ID
+      value: "1"
+    - name: CONFIG_STORAGE_TOPIC
+      value: debezium_connect_configs
+    - name: OFFSET_STORAGE_TOPIC
+      value: debezium_connect_offsets
+    - name: STATUS_STORAGE_TOPIC
+      value: debezium_connect_statuses
+
+ui:
+  enabled: true
+  replicaCount: 1
+  imagePullSecrets: [ ]
+
+  image:
+    repository: debezium/debezium-ui
+    pullPolicy: Always
+    tag: "1.9"
+
+  service:
+    type: ClusterIP
+    port: 8080
+    protocol: TCP
+    name: http
+
+  ingress:
+    enabled: false
+    router: private
+    host: DEBEZIUM_UI_HOST_ADDRESS
+
+  autoscaling:
+    enabled: false
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1Gi
+    requests:
+      cpu: 500m
+      memory: 1Gi
+
+  env:
+    - name: KAFKA_CONNECT_URIS
+      value: "http://debezium-connect.kafka.svc.cluster.local:8083"
+```
+```bash
+helm -n kafka upgrade --install debezium --create-namespace -f values.yaml ./ --wait
+```
+
 - Kafka Management with Akhq
 - https://github.com/tchiotludo/akhq/tree/dev/helm/akhq
 - https://akhq.io/docs/configuration/helm.html
