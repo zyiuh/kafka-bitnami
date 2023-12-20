@@ -437,7 +437,8 @@ mountProtoDesc:
   hostPath:
 ```
 ```bash
-helm -n kafka upgrade --install kafdrop --create-namespace -f kafdrop-values.yaml ./kafdrop/chart/ --wait```
+helm -n kafka upgrade --install kafdrop --create-namespace -f kafdrop-values.yaml ./kafdrop/chart/ --wait
+```
 
 ### Best Solution is Kafdrop
 
@@ -448,7 +449,7 @@ git clone https://github.com/snapp-incubator/debezium-chart.git
 ```
 
 - debezium-values.yaml
-```bash
+```yaml
 nameOverride: ""
 fullnameOverride: "debezium"
 
