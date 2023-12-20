@@ -536,6 +536,11 @@ ui:
 helm -n kafka upgrade --install debezium --create-namespace -f debezium-values.yaml ./debezium-chart/debezium/ --wait
 ```
 
+- kubernetes NOSQL Client
+```bash
+kubectl run mongo-webui --port 3000 --image mongoclient/mongoclient:latest -n default
+```
+
 - Create a Mongo Atlas Connector for CDC
 - Simply get connection string value from Mongo Atlas and replace it with USERNAME and PASSWORD
 ```json
