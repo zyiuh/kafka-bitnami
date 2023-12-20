@@ -457,10 +457,11 @@ connect:
   replicaCount: 1
   imagePullSecrets: [ ]
 
+  # https://quay.io/repository/debezium/connect?tab=tags
   image:
     repository: quay.io/debezium/connect
     pullPolicy: Always
-    tag: "1.9"
+    tag: "2.4.2.Final"
 
   service:
     type: ClusterIP
@@ -499,10 +500,11 @@ ui:
   replicaCount: 1
   imagePullSecrets: [ ]
 
+  # https://quay.io/repository/debezium/debezium-ui?tab=tags
   image:
     repository: debezium/debezium-ui
     pullPolicy: Always
-    tag: "1.9"
+    tag: "2.4"
 
   service:
     type: ClusterIP
