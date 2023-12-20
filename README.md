@@ -360,7 +360,7 @@ git clone https://github.com/obsidiandynamics/kafdrop.git
 cd kafdrop/chart
 ```
 
-- kafdrop values.yaml
+- kafdrop-values.yaml
 ```
 replicaCount: 1
 
@@ -437,8 +437,7 @@ mountProtoDesc:
   hostPath:
 ```
 ```bash
-helm -n kafka upgrade --install kafdrop --create-namespace -f values.yaml ./ --wait
-```
+helm -n kafka upgrade --install kafdrop --create-namespace -f kafdrop-values.yaml ./kafdrop/chart/ --wait```
 
 ### Best Solution is Kafdrop
 
@@ -446,10 +445,9 @@ helm -n kafka upgrade --install kafdrop --create-namespace -f values.yaml ./ --w
 - https://github.com/snapp-incubator/debezium-chart/tree/master
 ```bash
 git clone https://github.com/snapp-incubator/debezium-chart.git
-cd debezium-chart/debezium
 ```
 
-- values.yaml
+- debezium-values.yaml
 ```bash
 nameOverride: ""
 fullnameOverride: "debezium"
@@ -532,7 +530,7 @@ ui:
       value: "http://debezium-connect.kafka.svc.cluster.local:8083"
 ```
 ```bash
-helm -n kafka upgrade --install debezium --create-namespace -f values.yaml ./ --wait
+helm -n kafka upgrade --install debezium --create-namespace -f debezium-values.yaml ./debezium-chart/debezium/ --wait
 ```
 
 - Kafka Management with Akhq
