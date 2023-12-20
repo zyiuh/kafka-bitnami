@@ -536,6 +536,37 @@ ui:
 helm -n kafka upgrade --install debezium --create-namespace -f debezium-values.yaml ./debezium-chart/debezium/ --wait
 ```
 
+- Create a Mongo Atlas Connector for CDC
+- Simply get connection string value from Mongo Atlas and replace it with USERNAME and PASSWORD
+```json
+{
+  "name": "mongodb-atlas-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
+    "tasks.max": "2",
+    "mongodb.connection.string": "mongodb+srv://USERNAME:PASSWORD@cluster-devops-0.rzkdltt.mongodb.net/",
+    "topic.prefix": "local",
+    "mongodb.name": "local",
+    "database.include.list": "local",
+    "collection.include.list": "local.user,local.following,local.follow",
+    "transforms": "dropPrefix",
+    "transforms.dropPrefix.type": "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.dropPrefix.regex": "local.*",
+    "transforms.dropPrefix.replacement": "local"
+  }
+}
+```
+- Create connector, status check & delete command with curl
+- Note: Make sure to port forward the connector port 8083 to localhost:8083
+```bash
+curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" localhost:8083/connectors/ -d @/mnt/mongo-atlas-connector.json
+
+curl -i -X GET -H "Accept:application/json" localhost:8083/connectors/mongodb-atlas-connector/status
+
+curl -i -X DELETE -H "Accept:application/json" localhost:8083/connectors/mongodb-atlas-connector
+```
+
+
 - Kafka Management with Akhq
 - https://github.com/tchiotludo/akhq/tree/dev/helm/akhq
 - https://akhq.io/docs/configuration/helm.html
