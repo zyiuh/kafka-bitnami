@@ -15,6 +15,10 @@ kraft:
 extraEnvVars:
   - name: KAFKA_ENABLE_KRAFT
     value: "false"
+  - name: KAFKA_CFG_DELETE_TOPIC_ENABLE
+    value: "true"  # Add this line to enable topic deletion
+  - name: KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE
+    value: "true"  # Add this line to enable topic auto-creation
 zookeeper:
   enabled: true
   replicaCount: 3

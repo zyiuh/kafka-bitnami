@@ -312,6 +312,10 @@ kraft:
 extraEnvVars:
   - name: KAFKA_ENABLE_KRAFT
     value: "false"
+  - name: KAFKA_CFG_DELETE_TOPIC_ENABLE
+    value: "true"  # Add this line to enable topic deletion
+  - name: KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE
+    value: "true"  # Add this line to enable topic auto-creation
 zookeeper:
   enabled: true
   replicaCount: 3
@@ -357,6 +361,7 @@ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test1 --from
 - kafdrop
 ```bash
 git clone https://github.com/obsidiandynamics/kafdrop.git
+cd kafdrop/chart
 ```
 
 - kafdrop-values.yaml
@@ -460,7 +465,7 @@ connect:
   image:
     repository: quay.io/debezium/connect
     pullPolicy: Always
-    tag: "2.4.2.Final"
+    tag: "2.3.2.Final"
 
   service:
     type: ClusterIP
@@ -503,7 +508,7 @@ ui:
   image:
     repository: debezium/debezium-ui
     pullPolicy: Always
-    tag: "2.4"
+    tag: "2.1.2.Final"
 
   service:
     type: ClusterIP
@@ -544,19 +549,21 @@ kubectl run mongo-webui --port 3000 --image mongoclient/mongoclient:latest -n de
 - Simply get connection string value from Mongo Atlas and replace it with USERNAME and PASSWORD
 ```json
 {
-  "name": "mongodb-atlas-connector",
+  "name": "mongo-atlas",
   "config": {
     "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
-    "tasks.max": "2",
-    "mongodb.connection.string": "mongodb+srv://USERNAME:PASSWORD@cluster-devops-0.rzkdltt.mongodb.net/",
-    "topic.prefix": "local",
-    "mongodb.name": "local",
-    "database.include.list": "local",
-    "collection.include.list": "local.user,local.following,local.follow",
-    "transforms": "dropPrefix",
-    "transforms.dropPrefix.type": "org.apache.kafka.connect.transforms.RegexRouter",
-    "transforms.dropPrefix.regex": "local.*",
-    "transforms.dropPrefix.replacement": "local"
+    "topic.prefix": "dev.test",
+    "mongodb.connection.string": "mongodb+srv://quickbooks2018:CNaTi1Hukm552DYW@cluster-devops-0.rzkdltt.mongodb.net/",
+    "mongodb.hosts": "cluster-devops-0.rzkdltt.mongodb.net",
+    "mongodb.user": "username",
+    "mongodb.password": "password",
+    "mongodb.ssl.enabled": true,
+    "mongodb.authsource": "testStream",
+    "snapshot.mode": "never",
+    "provide.transaction.metadata": true,
+    "sanitize.field.names": true,
+    "heartbeat.interval.ms": 1,
+    "cursor.max.await.time.ms": 0
   }
 }
 ```
@@ -604,7 +611,7 @@ akhq.security:
 ```
 - Note: Update chart version in values.yaml file to 0.23.0
 
-- configuration.yaml put this in values.yaml file
+- configuration.yaml put this in akhq-values.yaml file
 ```yaml
 configuration:
   micronaut:
@@ -632,9 +639,8 @@ configuration:
 
 ```bash
 git clone https://github.com/tchiotludo/akhq.git
-cd akhq/helm/akhq
 ```
 ```helm
 helm upgrade --install kafka-akhq --namespace kafka \
-  -f values.yaml --create-namespace --wait ./
+  -f akhq-values.yaml --create-namespace --wait ./akhq/helm/akhq
 ```

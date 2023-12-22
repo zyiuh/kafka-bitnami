@@ -1,0 +1,18 @@
+{
+  "name": "mongo-atlas",
+  "config": {
+  "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
+  "topic.prefix": "dev.test",
+  "mongodb.connection.string": "mongodb+srv://quickbooks2018:CNaTi1Hukm552DYW@cluster-devops-0.rzkdltt.mongodb.net/",
+  "mongodb.hosts": "cluster-devops-0.rzkdltt.mongodb.net",
+  "mongodb.user": "username",
+  "mongodb.password": "password",
+  "mongodb.ssl.enabled": true,
+  "mongodb.authsource": "testStream",
+  "snapshot.mode": "never",
+  "provide.transaction.metadata": true,
+  "sanitize.field.names": true,
+  "heartbeat.interval.ms": 1,
+  "cursor.max.await.time.ms": 0
+ }
+}
