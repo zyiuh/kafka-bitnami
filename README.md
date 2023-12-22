@@ -1,6 +1,7 @@
 # Kafka Bitnami
 
 - eks blue prints https://github.com/quickbooks2018/aws-eks-blueprints
+- mongo atlas     https://github.com/quickbooks2018/mongodb.git
 
 - Kind Cluster bash script
 
