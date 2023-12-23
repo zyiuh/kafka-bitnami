@@ -362,7 +362,6 @@ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test1 --from
 - kafdrop
 ```bash
 git clone https://github.com/obsidiandynamics/kafdrop.git
-cd kafdrop/chart
 ```
 
 - kafdrop-values.yaml
