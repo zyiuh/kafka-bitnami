@@ -2,10 +2,10 @@ image:
   debug: true
 replicaCount: 3
 tolerations:
-  - key: "node-role.kubernetes.io/control-plane"
-    operator: "Equal"
-    value: ""
-    effect: "NoSchedule"
+   - key: "node-role.kubernetes.io/control-plane"
+     operator: "Equal"
+     value: ""
+     effect: "NoSchedule"
 externalAccess:
   enabled: false
   autoDiscovery:
@@ -22,3 +22,6 @@ extraEnvVars:
 zookeeper:
   enabled: true
   replicaCount: 3
+  persistence:
+    enabled: true
+    size: 2Gi
