@@ -556,7 +556,7 @@ kubectl run mongo-webui --port 3000 --image mongoclient/mongoclient:latest -n de
   "config": {
     "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
     "topic.prefix": "dev.test",
-    "mongodb.connection.string": "mongodb+srv://quickbooks2018:CNaTi1Hukm552DYW@cluster-devops-0.rzkdltt.mongodb.net/",
+    "mongodb.connection.string": "mongodb+srv://username:password@cluster-devops-0.rzkdltt.mongodb.net/",
     "mongodb.hosts": "cluster-devops-0.rzkdltt.mongodb.net",
     "mongodb.user": "username",
     "mongodb.password": "password",
