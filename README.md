@@ -299,7 +299,7 @@ helm show all bitnami/kafka --version 23.0.7
 image:
   debug: true
 replicaCount: 3
-tolerations: 
+tolerations:
    - key: "node-role.kubernetes.io/control-plane"
      operator: "Equal"
      value: ""
@@ -309,7 +309,7 @@ externalAccess:
   autoDiscovery:
     enabled: true
 kraft:
-  enabled: false    
+  enabled: false
 extraEnvVars:
   - name: KAFKA_ENABLE_KRAFT
     value: "false"
@@ -320,6 +320,9 @@ extraEnvVars:
 zookeeper:
   enabled: true
   replicaCount: 3
+  persistence:
+    enabled: true
+    size: 2Gi
 ```
 
 - metrics server installation
