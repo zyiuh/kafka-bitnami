@@ -640,6 +640,35 @@ configuration:
           bootstrap.servers: "PLAINTEXT://kafka-release-headless.kafka.svc.cluster.local:9092"
 ```
 
+- sasl configurations akhq-values.yaml
+```bash
+configuration:
+  micronaut:
+    security:
+      enabled: true
+      token:
+        jwt:
+          signatures:
+            secret:
+              generator:
+                secret: '123456789'
+    server:
+      cors:
+        enabled: true
+        configurations:
+          all:
+            allowedOrigins:
+              - "*"
+  akhq:
+    connections:
+      local:
+        properties:
+          bootstrap.servers: "kafka-release-headless.kafka.svc.cluster.local:9092"
+          security.protocol: "SASL_PLAINTEXT"
+          sasl.mechanism: "PLAIN"
+          sasl.jaas.config: "org.apache.kafka.common.security.plain.PlainLoginModule required username='USERNAME' password='PASSWORD';"
+```
+
 ```bash
 git clone https://github.com/tchiotludo/akhq.git
 ```
