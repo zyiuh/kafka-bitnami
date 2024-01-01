@@ -598,7 +598,7 @@ curl -i -X DELETE -H "Accept:application/json" localhost:8083/connectors/mongodb
 - https://codebeautify.org/sha256-hash-generator
 
 - If you're on a Unix-like system, you can also generate bcrypt hashes directly from the command line using htpasswd, which is part of Apache's httpd tools:
-- akhq-secure-vales.yaml
+- akhq-secure-values.yaml
 ```bash
 configuration:
   micronaut:
