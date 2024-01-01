@@ -688,7 +688,7 @@ configuration:
           signatures:
             secret:
               generator:
-                secret: '123456789'
+                secret: 'NewLongerSecretStringWithAtLeast32Characters'
     server:
       cors:
         enabled: true
@@ -714,7 +714,7 @@ configuration:
           signatures:
             secret:
               generator:
-                secret: '123456789'
+                secret: 'NewLongerSecretStringWithAtLeast32Characters'
     server:
       cors:
         enabled: true
