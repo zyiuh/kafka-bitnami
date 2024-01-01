@@ -1,0 +1,22 @@
+configuration:
+  micronaut:
+    security:
+      enabled: true
+      token:
+        jwt:
+          signatures:
+            secret:
+              generator:
+                secret: '123456789'
+    server:
+      cors:
+        enabled: true
+        configurations:
+          all:
+            allowedOrigins:
+              - "*"
+  akhq:
+    connections:
+      local:
+        properties:
+          bootstrap.servers: "PLAINTEXT://kafka-release-headless.kafka.svc.cluster.local:9092"
