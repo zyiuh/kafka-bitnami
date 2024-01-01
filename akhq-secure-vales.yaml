@@ -7,7 +7,7 @@ configuration:
           signatures:
             secret:
               generator:
-                secret: '123456789'
+                secret: 'NewLongerSecretStringWithAtLeast32Characters'
     server:
       cors:
         enabled: true
@@ -65,10 +65,10 @@ configuration:
             - connect/read
       basic-auth:
       - username: admin
-        password: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"  # SHA-256 hashed password for 'admin'
+        password: "74f4c92dcb3f50f629a4ab7df0ba0acb6d41eacc253a9c758242a3ce20a5fb15"  # SHA-256 hashed password for 'admin' is NewSHA256HashForAdmin
         groups:
           - admin
       - username: reader
-        password: "3d0941964aa3ebdcb00ccef58b1bb399f9f898465e9886d5aec7f31090a0fb30"  # SHA-256 hashed password for 'reader'
+        password: "c1cbcbde7ce4a8740f51873c8884af1115ee4b0106e8d13178f4bd264d08df21"  # SHA-256 hashed password for 'reader' is NewSHA256HashForReader
         groups:
-        - reader
+          - reader
