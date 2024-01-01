@@ -582,6 +582,7 @@ curl -i -X DELETE -H "Accept:application/json" localhost:8083/connectors/mongodb
 
 
 - Kafka Management with Akhq
+- https://akhq.io/
 - https://github.com/tchiotludo/akhq/tree/dev/helm/akhq
 - https://akhq.io/docs/configuration/helm.html
 - https://github.com/tchiotludo/akhq/tree/dev
