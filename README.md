@@ -598,20 +598,82 @@ curl -i -X DELETE -H "Accept:application/json" localhost:8083/connectors/mongodb
 - https://codebeautify.org/sha256-hash-generator
 
 - If you're on a Unix-like system, you can also generate bcrypt hashes directly from the command line using htpasswd, which is part of Apache's httpd tools:
+- akhq-secure-vales.yaml
 ```bash
-micronaut:
-  security:
-    enabled: true
-akhq.security:
-  basic-auth:
-    - username: admin
-      password: "<SHA-256 hashed password>"
+configuration:
+  micronaut:
+    security:
+      enabled: true
+      token:
+        jwt:
+          signatures:
+            secret:
+              generator:
+                secret: 'NewLongerSecretStringWithAtLeast32Characters'
+    server:
+      cors:
+        enabled: true
+        configurations:
+          all:
+            allowedOrigins:
+              - "*"
+  akhq:
+    connections:
+      local:
+        properties:
+          bootstrap.servers: "PLAINTEXT://kafka-release-headless.kafka.svc.cluster.local:9092"
+    # https://stackoverflow.com/questions/76787677/kafka-ui-akhq-basic-user-authentication-doesnt-work
+    security:
+      default-group:
+        - no-roles # Default groups for all the user even unlogged user
+      # Groups definition
       groups:
-      - admin
-    - username: reader
-      password: "<SHA-256 hashed password>"
-      groups:
-      - reader
+        admin: # unique key
+          name: admin # Group name
+          roles: # roles for the group
+            - topic/read
+            - topic/insert
+            - topic/delete
+            - topic/config/update
+            - node/read
+            - node/config/update
+            - topic/data/read
+            - topic/data/insert
+            - topic/data/delete
+            - group/read
+            - group/delete
+            - group/offsets/update
+            - registry/read
+            - registry/insert
+            - registry/update
+            - registry/delete
+            - registry/version/delete
+            - acls/read
+            - connect/read
+            - connect/insert
+            - connect/update
+            - connect/delete
+            - connect/state/update
+        # Basic auth configuration
+        reader: # unique key
+          name: reader # Group name
+          roles: # roles for the group
+            - topic/read
+            - node/read
+            - topic/data/read
+            - group/read
+            - registry/read
+            - acls/read
+            - connect/read
+      basic-auth:
+      - username: admin
+        password: "74f4c92dcb3f50f629a4ab7df0ba0acb6d41eacc253a9c758242a3ce20a5fb15"  # SHA-256 hashed password for 'admin' is NewSHA256HashForAdmin
+        groups:
+          - admin
+      - username: reader
+        password: "c1cbcbde7ce4a8740f51873c8884af1115ee4b0106e8d13178f4bd264d08df21"  # SHA-256 hashed password for 'reader' is NewSHA256HashForReader
+        groups:
+          - reader
 ```
 - Note: Update chart version in values.yaml file to 0.23.0
 
