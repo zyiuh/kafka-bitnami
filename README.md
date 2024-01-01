@@ -447,7 +447,7 @@ mountProtoDesc:
 helm -n kafka upgrade --install kafdrop --create-namespace -f kafdrop-values.yaml ./kafdrop/chart/ --wait
 ```
 
-### Best Solution is Kafdrop
+### Best Solution is AKHQ
 
 - Kafka Debizium for CDC Change Data Capture
 - https://github.com/snapp-incubator/debezium-chart/tree/master
